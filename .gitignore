@@ -8,3 +8,5 @@ frontend/dist/
 backend/.env
 
 .idea
+
+jsconfig.json
