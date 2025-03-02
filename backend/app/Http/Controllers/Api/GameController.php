@@ -28,10 +28,10 @@ class GameController extends Controller
         $roundResult = $this->gameService->play($playerHandSign);
 
         // Retrieve the current rounds from session
-        $rounds = Session::get('rounds', []);
-        $rounds[] = $roundResult;
-        Session::put('rounds', $rounds);
-
+//        $rounds = Session::get('rounds', []);
+//        $rounds[] = $roundResult;
+//        Session::put('rounds', $rounds);
+//        $roundResult['round'] = 1;
         return response()->json($roundResult);
     }
 
