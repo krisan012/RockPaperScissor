@@ -1,0 +1,10 @@
+# Node modules for frontend
+frontend/node_modules/
+
+# Compiled frontend build files (if not required)
+frontend/dist/
+
+# Environment files
+backend/.env
+
+.idea
