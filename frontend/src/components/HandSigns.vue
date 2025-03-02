@@ -7,10 +7,12 @@
             </button>
         </div>
     </transition>
+
+    <button class="button" v-if="round > 1 && round < 10" @click="resetGame">Reset Game</button>
 </template>
 
 <script setup>
-import {ref, defineProps} from "vue";
+import {ref, defineProps, onMounted} from "vue";
 import rockImg from "@/assets/rock.png";
 import paperImg from "@/assets/paper.png";
 import scissorImg from "@/assets/scissors.png";
@@ -28,12 +30,14 @@ const hands = ref([
     { name: "Scissors", image: scissorImg, class: "scissors" },
 ]);
 const isLoading = ref(false)
+const sessionId = ref(localStorage.getItem("session_id"))
 
-const emit = defineEmits(["hand-selected"]);
+const emit = defineEmits(["hand-selected", "game-summary", "reset-game"]);
 
 const selectSign = async (sign) => {
     if (isLoading.value) return
     if (props.round > 10) return
+    if (!sessionId.value) return;
 
     isLoading.value = true;
 
@@ -44,11 +48,16 @@ const selectSign = async (sign) => {
         isLoading.value = false; // Reset loading state after response
     }
 
+    if(props.round === 10)
+    {
+        const result = await getGameSummary();
+        emit("game-summary", result);
+    }
 }
 
 const sendSelection = async (signSelected) => {
     try {
-        const response = await api.post("/play-round", { handSign: signSelected });
+        const response = await api.post("/play-round", { handSign: signSelected, session_id: sessionId.value });
         return response.data;
     } catch (error) {
         console.error("Error Sending Data", error);
@@ -56,6 +65,32 @@ const sendSelection = async (signSelected) => {
     }
 }
 
+const getGameSummary = async () => {
+    try {
+        const response = await api.get(`/summary?session_id=${sessionId.value}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error Getting Data", error);
+        return null;
+    }
+}
+
+const startGame = async () => {
+    if (!sessionId.value) {
+        isLoading.value = true
+        const response = await api.post("/start");
+        const data = await response.data;
+        sessionId.value = data.session_id;
+        localStorage.setItem("session_id", sessionId.value);
+        isLoading.value = false
+    }
+}
+
+const resetGame = () => {
+    emit("reset-game", []);
+}
+
+onMounted(startGame)
 </script>
 
 <style scoped>
@@ -66,7 +101,7 @@ const sendSelection = async (signSelected) => {
     margin: 100px 0 50px 0;
 }
 
-button {
+button.game-button {
     width: 150px;
     height: 150px;
     border: none;
@@ -104,15 +139,15 @@ button:hover {
 }
 
 /* Background colors for buttons */
-.rock {
+.game-button.rock {
     background-color: #d55555;
 }
 
-.paper {
+.game-button.paper {
     background-color: #30a4f1;
 }
 
-.scissors {
+.game-button.scissors {
     background-color: #ede966;
 }
 

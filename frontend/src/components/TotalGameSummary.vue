@@ -5,27 +5,27 @@
             <div  class="stats">
                 <div class="stat">
                     <span class="label">Total Rounds:</span>
-                    <span class="value">{{ gameRounds.length }}</span>
+                    <span class="value">{{ summary.total_rounds }}</span>
                 </div>
                 <div class="stat">
                     <span class="label">Player 1 Wins:</span>
-                    <span class="value">{{ totalPlayer1Wins }}</span>
+                    <span class="value">{{ summary.player_1_wins }}</span>
                 </div>
                 <div class="stat">
                     <span class="label">Player 2 Wins (You):</span>
-                    <span class="value">{{ totalPlayer2Wins }}</span>
+                    <span class="value">{{ summary.player_2_wins }}</span>
                 </div>
                 <div class="stat">
                     <span class="label">Ties:</span>
-                    <span class="value">{{ totalTies }}</span>
+                    <span class="value">{{ summary.ties }}</span>
                 </div>
                 <div class="stat">
                     <span class="label">Player 1 Win %:</span>
-                    <span class="value">{{ player1WinPercentage }}%</span>
+                    <span class="value">{{ summary.player_1_win_percentage ?? 0 }}%</span>
                 </div>
                 <div class="stat">
                     <span class="label">Player 2 Win %:</span>
-                    <span class="value">{{ player2WinPercentage }}%</span>
+                    <span class="value">{{ summary.player_2_win_percentage ?? 0 }}%</span>
                 </div>
             </div>
 
@@ -38,37 +38,14 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
 
 const props = defineProps({
     gameRounds: Array,
-    ties: Number
+    summary: Object
 });
 
 const emit = defineEmits(["reset-game"]);
 
-const totalPlayer1Wins = computed(() => {
-    return props.gameRounds.filter((game) => game.result === "lose").length;
-});
-const totalPlayer2Wins = computed(() => {
-    return props.gameRounds.filter((game) => game.result === "win").length;
-});
-const totalTies = computed(() => {
-    return props.gameRounds.filter((game) => game.result === "draw").length;
-});
-
-const player1WinPercentage = computed(() => {
-    const totalGames = 10
-    return totalGames > 0
-        ? ((totalPlayer1Wins.value / totalGames) * 100).toFixed(2)
-        : "0";
-});
-const player2WinPercentage = computed(() => {
-    const totalGames = props.gameRounds.length
-    return totalGames > 0
-        ? ((totalPlayer2Wins.value / totalGames) * 100).toFixed(2)
-        : "0";
-});
 const resetGame = () => {
     emit("reset-game");
 };
