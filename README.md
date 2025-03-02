@@ -13,3 +13,5 @@
    ```bash
    git clone <your-repository-url>
    cd project-root
+
+![Alt text](main_app.png)
