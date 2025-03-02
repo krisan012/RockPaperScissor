@@ -1,7 +1,7 @@
 
 <template>
     <div class="card" v-if="gameRounds.length >= 1">
-        <h2>Game Summary</h2>
+        <h2>Round History</h2>
         <table >
             <thead>
             <tr>
