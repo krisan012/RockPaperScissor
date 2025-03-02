@@ -1,7 +1,7 @@
 # Dockerized Laravel & Vue.js Rock-Paper-Scissors Game
 ![Alt text](main_app.png)
 ## Prerequisites
-- Docker
+- Docker (my version v4.38)
 - Docker Compose
 
 ## Project Structure
@@ -13,6 +13,16 @@
    ```bash
    git clone https://github.com/krisan012/RockPaperScissor
    ```
+```bash
+cd RockPaperScissor
+```
+
+```bash
+cp backend/.env.example backend/.env
+```
+```bash
+cp frontend/.env.example frontend/.env
+```
 
 2️⃣ Composer install
 ```bash
@@ -22,13 +32,6 @@ cd RockPaperScissor/backend
 composer install
 ```
 
-[//]: # (   ```)
-
-[//]: # (   cp backend/.env.example backend/.env)
-
-[//]: # (   cp frontend/.env.example frontend/.env)
-
-[//]: # (   ```)
 
 >⚙️ Environment Variables
 
