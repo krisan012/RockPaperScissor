@@ -1,18 +1,26 @@
 <template>
-    <div class="button-container">
-        <button v-for="(hand, index) in hands" :key="index" class="game-button" :class="hand.class" @click="selectSign(hand.name)" :disabled="isLoading">
-            <span v-if="isLoading" class="loader"></span>
-            <img :src="hand.image" :alt="hand.name" class="logo" />
-        </button>
-    </div>
+    <transition name="fade-scale">
+        <div class="button-container" v-if="round <= 10">
+            <button v-for="(hand, index) in hands" :key="index" class="game-button" :class="hand.class" @click="selectSign(hand.name)" :disabled="isLoading">
+                <span v-if="isLoading" class="loader"></span>
+                <img :src="hand.image" :alt="hand.name" class="logo" />
+            </button>
+        </div>
+    </transition>
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {ref, defineProps} from "vue";
 import rockImg from "@/assets/rock.png";
 import paperImg from "@/assets/paper.png";
 import scissorImg from "@/assets/scissors.png";
 import api from "../config/axios.js";
+
+const props = defineProps({
+    round: {
+        required: true
+    }
+})
 
 const hands = ref([
     { name: "Rock", image: rockImg, class: "rock" },
@@ -25,6 +33,7 @@ const emit = defineEmits(["hand-selected"]);
 
 const selectSign = async (sign) => {
     if (isLoading.value) return
+    if (props.round > 10) return
 
     isLoading.value = true;
 
@@ -46,6 +55,7 @@ const sendSelection = async (signSelected) => {
         return null;
     }
 }
+
 </script>
 
 <style scoped>
@@ -53,7 +63,7 @@ const sendSelection = async (signSelected) => {
     display: flex;
     gap: 50px; /* Add space between buttons */
     justify-content: center; /* Center align */
-    margin: 100px 0;
+    margin: 100px 0 50px 0;
 }
 
 button {
