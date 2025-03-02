@@ -12,14 +12,23 @@
 1️⃣. Clone the repository:
    ```bash
    git clone https://github.com/krisan012/RockPaperScissor
-   cd RockPaperScissor
    ```
 
-2️⃣ Create Environment Files
-   ```
-   cp backend/.env.example backend/.env
-   cp frontend/.env.example frontend/.env
-   ```
+2️⃣ Composer install
+```bash
+cd RockPaperScissor/backend
+```
+```bash
+composer install
+```
+
+[//]: # (   ```)
+
+[//]: # (   cp backend/.env.example backend/.env)
+
+[//]: # (   cp frontend/.env.example frontend/.env)
+
+[//]: # (   ```)
 
 >⚙️ Environment Variables
 
@@ -27,7 +36,6 @@ Backend (backend/.env)
 
 ```env
 APP_KEY=your-app-key
-DB_CONNECTION=mysql
 REDIS_HOST=redis
 ```
 
