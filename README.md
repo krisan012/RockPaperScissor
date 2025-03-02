@@ -26,27 +26,12 @@ cp frontend/.env.example frontend/.env
 
 2️⃣ Composer install
 ```bash
-cd RockPaperScissor/backend
+cd backend
 ```
 ```bash
 composer install
 ```
 
-
->⚙️ Environment Variables
-
-Backend (backend/.env)
-
-```env
-APP_KEY=your-app-key
-REDIS_HOST=redis
-```
-
-Frontend (frontend/.env)
-
-```dotenv
-VITE_API_URL=http://localhost:8000
-```
 
 3️⃣ Run Docker Containers
 Run the following command to build and start all services:
