@@ -28,10 +28,10 @@ class GameController extends Controller
         $roundResult = $this->gameService->play($playerHandSign);
 
         // Retrieve the current rounds from session
-//        $rounds = Session::get('rounds', []);
-//        $rounds[] = $roundResult;
-//        Session::put('rounds', $rounds);
-//        $roundResult['round'] = 1;
+        $rounds = Session::get('rounds', []);
+        $rounds[] = $roundResult;
+        Session::put('rounds', $rounds);
+        $roundResult['round'] = 1;
         return response()->json($roundResult);
     }
 
@@ -71,5 +71,11 @@ class GameController extends Controller
         $summary['player_2_win_percentage'] = ($summary['player_2_wins'] / $summary['total_rounds']) * 100;
 
         return response()->json($summary);
+    }
+
+    public function resetGame(): \Illuminate\Http\JsonResponse
+    {
+        Session::forget('rounds'); // Clears the stored rounds
+        return response()->json(['message' => 'Game reset successfully']);
     }
 }
