@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class Game10RoundsTest extends TestCase
@@ -14,10 +15,11 @@ class Game10RoundsTest extends TestCase
      */
     public function testTenRoundsAndSummary()
     {
+        $sessionId = Str::uuid()->toString();
         // Play 10 rounds using the same session.
         for ($i = 0; $i < 10; $i++) {
             // For this test, I fix the player 2 move to "rock".
-            $response = $this->postJson('/api/play-round', ['handSign' => 'rock']);
+            $response = $this->postJson('/api/play-round', ['handSign' => 'rock', 'session_id' => $sessionId]);
             $response->assertStatus(200);
             $response->assertJsonStructure([
                 'player_2', //player
@@ -27,7 +29,7 @@ class Game10RoundsTest extends TestCase
         }
 
         // Retrieve the summary after 10 rounds.
-        $summaryResponse = $this->getJson('/api/summary');
+        $summaryResponse = $this->getJson("/api/summary?session_id=$sessionId");
         $summaryResponse->assertStatus(200);
         $summaryResponse->assertJsonStructure([
             'total_rounds',
