@@ -98,7 +98,7 @@ onMounted(startGame)
     display: flex;
     gap: 50px; /* Add space between buttons */
     justify-content: center; /* Center align */
-    margin: 100px 0 50px 0;
+    margin: 50px 0 50px 0;
 }
 
 button.game-button {
