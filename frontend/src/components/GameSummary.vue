@@ -30,9 +30,6 @@
         </table>
     </div>
 
-    <div class="card">
-
-    </div>
     <p>
         Check out
         <a href="https://github.com/krisan012/RockPaperScissor" target="_blank"
