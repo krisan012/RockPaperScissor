@@ -8,7 +8,7 @@
         </div>
     </transition>
 
-    <button class="button" v-if="round > 1 && round < 10" @click="resetGame">Reset Game</button>
+    <button class="button" v-if="round > 1 && round <= 10" @click="resetGame">Reset Game</button>
 </template>
 
 <script setup>
