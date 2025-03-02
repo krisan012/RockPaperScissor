@@ -40,7 +40,7 @@
         > Repository
     </p>
 
-    <p class="read-the-docs">A Rock Paper Scissors mini game, created by Mark</p>
+    <p class="read-the-docs">A Rock Paper Scissors mini game</p>
 </template>
 
 <script setup>
